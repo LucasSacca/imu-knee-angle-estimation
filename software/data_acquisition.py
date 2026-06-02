@@ -14,7 +14,7 @@ import os
 porta_com = 'COM6'
 coletas_dir = 'coletas'
 baudrate = 115200 
-T_amostragem = 0.007
+T_amostragem = 0.008
 
 
 
@@ -122,7 +122,7 @@ while (time.time() - t0) < tempo_coleta:
 # Diferenciação entre o tempo marcado pelo Clock do MCU (tempo_mcu) 
 # e uma coluna com nosso período de amostragem vetorizado (tempo_vetorizado)
 df_raw[df_raw.columns] = df_raw[df_raw.columns].apply(pd.to_numeric)
-amostragem_array = np.linspace(start=T_amostragem, stop= (T_amostragem * len(df_raw)), num=len(df_raw))
+amostragem_array = np.linspace(start=0, stop= (T_amostragem * len(df_raw)), num=len(df_raw))
 
 df_raw['tempo_mcu'] = ((df_raw['tempo_mcu'] - df_raw['tempo_mcu'].iloc[0])/1000) + T_amostragem    
 df_raw.insert(loc=0, column='tempo_vetorizado', value= amostragem_array)
